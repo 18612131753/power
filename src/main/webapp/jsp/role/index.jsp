@@ -12,7 +12,7 @@
 <div style="float:left;width:50%;">
 	<div id="${tabCode}_menu">
 		<div id="${tabCode}_menu_buttonbar" style="margin-top:3px;margin-bottom:2px"></div>
-		<div class="div_language">
+		<div class="div_language" style="height:33px;line-height:33px;">
 			<span style="margin:0 0 0 5px">菜单关联的角色：</span>
 			<span style="color:red" id="${tabCode}_menu_rolename"></span>
 		</div>
@@ -111,7 +111,7 @@ $(document).ready(function() {
 		});
 	}
 //菜单
-	var menu_tree_height = CENTER_HEIGHT - BUTTON_BAR_HEIGHT - 80 ;
+	var menu_tree_height = CENTER_HEIGHT - BUTTON_BAR_HEIGHT - 90 ;
 	$('#'+tabCode+'_menu_showtree').css("height",menu_tree_height);
 	$('#'+tabCode+'_menu').omPanel({
 		title:'菜单'
