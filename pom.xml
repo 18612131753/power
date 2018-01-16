@@ -116,7 +116,7 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
-		<!-- jsp支持 s -->
+		<!-- jsp支持 s 如果存在编译需要而发布不需要的jar包，可以用scope标签，值设为provided-->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -152,6 +152,14 @@
 
 	<build>
 		<finalName>power</finalName>
-
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 </project>

@@ -59,6 +59,7 @@ public class OrgController {
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session, Model model ){
 		model.addAttribute("tabCode", tabCode);
+		
 		return ModelAndViewUtil.Jsp("department/index");
 	}
 	
