@@ -79,7 +79,7 @@
 				}
 			});
 		}
-		// 难度ab
+		// 难度abaaa
 		$('#'+tabCode+'_form_level').omCombo({
 			dataSource:[
 				{text:'容易',value:'1'},
