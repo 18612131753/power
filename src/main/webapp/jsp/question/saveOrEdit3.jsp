@@ -15,7 +15,7 @@
 			</tr>
 			<tr>
 				<td class="td_right">
-					<span style="color:red;">*</span>难度：</td>
+					<span style="color:red;">*</span>难度1：</td>
 				<td class="td_left">
 					<input type="text" id="${tabCode}_form_level" name="level"/>
 				</td>
