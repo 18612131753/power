@@ -29,7 +29,7 @@ public interface QuestionDao {
 	@Update(
 		"UPDATE exam_question SET type=#{q.type},title=#{q.title},level=#{q.level},image_url=#{q.image_url},answer=#{q.answer},"+
 		"opt_a=#{q.opt_a},opt_b=#{q.opt_b},opt_c=#{q.opt_c},opt_d=#{q.opt_d},opt_e=#{q.opt_e},opt_f=#{q.opt_f},opt_g=#{q.opt_g},opt_h=#{q.opt_h},"+
-		"owner=#{q.owner},uid=#{q.uid},udate=now()) "+
+		"owner=#{q.owner},uid=#{q.uid},udate=now() "+
 		"where qid=#{q.qid}")
 	public void updateQuestion(@Param("q")QuestionDO question) ;
 	
