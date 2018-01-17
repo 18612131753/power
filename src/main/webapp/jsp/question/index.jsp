@@ -157,8 +157,8 @@ $(document).ready(function() {
 			main_messageBox_pleaseSelectOne_alert();
 			return false;
 		}
-	    var rd_id=selections[0].menuid;
-	    realDelete(tabCode+'_grid','${contextPath}/menu/delete/'+rd_id);
+	    var rd_id=selections[0].qid;
+	    realDelete(tabCode+'_grid','${contextPath}/question/delete/'+rd_id);
 	}
 });
 

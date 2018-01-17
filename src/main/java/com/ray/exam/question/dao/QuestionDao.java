@@ -33,6 +33,6 @@ public interface QuestionDao {
 		"where qid=#{q.qid}")
 	public void updateQuestion(@Param("q")QuestionDO question) ;
 	
-	@Update("UPDATE exam_question SET state=0,uid=#{q.uid},udate=now() where qid=#{q.qid}")
+	@Update("UPDATE exam_question SET state=0,uid=#{userid},udate=now() where qid=#{qid}")
 	public void deleteQuestion(@Param("userid")Integer userid, @Param("qid")Integer qid);
 }
