@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td class="td_right">
-					<span style="color:red;">*</span><input type="radio" name="answer" value="A" checked/>选项A：
+					<span style="color:red;">*</span><input type="checkbox" name="answer" value="A"/>选项A：
 				</td>
 				<td class="td_left">
 					<INPUT id="${tabCode}_form_opt_a" type="text" style="width:380px" name="opt_a" value="${q.opt_a}"/>
@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td class="td_right">
-					<span style="color:red;">*</span><input type="radio" name="answer" value="B"/>选项B：
+					<span style="color:red;">*</span><input type="checkbox" name="answer" value="B"/>选项B：
 				</td>
 				<td class="td_left">
 					<INPUT id="${tabCode}_form_opt_b" type="text" style="width:380px" name="opt_b" value="${q.opt_b}"/>
@@ -41,7 +41,7 @@
 			</tr>
 			<tr>
 				<td class="td_right">
-					<span style="color:red;">*</span><input type="radio" name="answer" value="C"/>选项C：
+					<span style="color:red;">*</span><input type="checkbox" name="answer" value="C"/>选项C：
 				</td>
 				<td class="td_left">
 					<INPUT id="${tabCode}_form_opt_c" type="text" style="width:380px" name="opt_c" value="${q.opt_c}"/>
@@ -50,7 +50,7 @@
 			</tr>
 			<tr>
 				<td class="td_right">
-					<span style="color:red;">*</span><input type="radio" name="answer" value="D"/>选项D：
+					<span style="color:red;">*</span><input type="checkbox" name="answer" value="D"/>选项D：
 				</td>
 				<td class="td_left">
 					<INPUT id="${tabCode}_form_opt_d" type="text" style="width:380px" name="opt_d" value="${q.opt_d}"/>
@@ -62,7 +62,7 @@
 					正确答案：
 				</td>
 				<td class="td_left">
-					<span style="color:red;" id="${tabCode}_form_answer">${q==null || q.answer==null ?"A":q.answer}</span>
+					<span style="color:red;" id="${tabCode}_form_answer">${q==null || q.answer==null ?"":q.answer}</span>
 				</td>
 				<td width="50"><span class="errorImg"></span><span class="errorMsg"></span></td>
 			</tr>
@@ -71,6 +71,10 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+        var answerArr = []; // 保存点击正确答案数组
+		if ('${q.answer}') {
+            answerArr = '${q.answer}'.split(',')
+		}
         var new_or_edit = "${new_or_edit}";
         var tabCode = "${tabCode}";
         var FORM_PAGE_CONFIG={
@@ -196,7 +200,19 @@
         });
         // 选择正确答案
         $("input[name='answer']").click(function(){
-            $('#'+tabCode+'_form_answer').html($(this).val());
+            if ($(this).is(':checked')) {
+                answerArr.push($(this).val());
+            	$('#'+tabCode+'_form_answer').html(answerArr.join(','));
+			} else {
+                for (var i = 0, len = answerArr.length; i < len; i++) {
+                    if (answerArr[i] === $(this).val()) {
+                        answerArr.splice(i, 1)
+                        break;
+                    }
+                    console.log(i)
+                }
+                $('#'+tabCode+'_form_answer').html(answerArr.join(','));
+			}
         });
         var dtitle = (("create"==new_or_edit)?"新建-多选题":"编辑-多选题")+"<label id=\""+FORM_PAGE_CONFIG.FORM_DIALOG+"_error\" class=\"error\" generated=\"true\" style=\"display:none;\"></label>";
 
@@ -225,5 +241,9 @@
         $("#"+tabCode+"_form_submit").omButton({ icons : { left : '${windowSubmitIcons}' } });
         $("#"+tabCode+"_form_colse").omButton({ icons : { left : '${windowCloseIcons}' } });
 
+        var answerEditArr = '${q.answer}'.split(',');
+        for (var j = 0, editLen = answerEditArr.length; j < editLen; j++) {
+            $("input[value=" + answerEditArr[j] + "]:checkbox").attr('checked', true)
+        }
     });
 </script>
