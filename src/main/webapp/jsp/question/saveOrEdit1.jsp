@@ -9,7 +9,7 @@
 				<td class="td_right">
 					<span style="color:red;">*</span>题目：</td>
 				<td class="td_left">
-					<input type="text" id="${tabCode}_form_title" name="title" style="width:380px"/>
+					<input type="text" id="${tabCode}_form_title" name="title"  value="${q.title}" style="width:380px"/>
 				</td>
 				<td width="50"><span class="errorImg"></span><span class="errorMsg"></span></td>
 			</tr>
