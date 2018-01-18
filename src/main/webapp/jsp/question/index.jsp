@@ -94,7 +94,7 @@ $(document).ready(function() {
 	//GRID数据区域
 	$('#'+tabCode+'_grid').omGrid({
 		 method:'POST',
-		 limit:ALL_LIMIT,
+		 limit:10,
 		 height:grid_height,
 		 autoFit:false,
 		 showIndex:false,
