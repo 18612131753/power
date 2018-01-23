@@ -94,7 +94,7 @@ $(document).ready(function() {
 	//GRID数据区域
 	$('#'+tabCode+'_grid').omGrid({
 		 method:'POST',
-		 limit:ALL_LIMIT,
+		 limit:10,
 		 height:grid_height,
 		 autoFit:false,
 		 showIndex:false,
@@ -157,8 +157,8 @@ $(document).ready(function() {
 			main_messageBox_pleaseSelectOne_alert();
 			return false;
 		}
-	    var rd_id=selections[0].menuid;
-	    realDelete(tabCode+'_grid','${contextPath}/menu/delete/'+rd_id);
+	    var rd_id=selections[0].qid;
+	    realDelete(tabCode+'_grid','${contextPath}/question/delete/'+rd_id);
 	}
 });
 

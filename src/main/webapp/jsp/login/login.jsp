@@ -12,6 +12,12 @@
 	<link href="${ctx}/script/css/login.css" rel="stylesheet" type="text/css" />	
 	<script type="text/javascript" src="${ctx}/script/js/ajax.js" ></script>
 	<script type="text/javascript">
+
+        function keyLogin(){
+            if (event.keyCode==13)  //回车键的键值为13
+                document.getElementById("loginBtn").click(); //调用登录按钮的登录事件
+        }
+
 	    var xWithScroll=0;
 	    var yWithScroll=0;
 	    
@@ -134,14 +140,14 @@
 						<td height="28" align="right" valign="middle" class="t2"><span
 							class="t1">密&nbsp;&nbsp;码：</span></td>
 						<td colspan="3" align="left" valign="middle"><span class="t1">
-								<label> <input type="password" class="textfield2" name="password" id="password" value="zs"/> </label> </span>
+								<label> <input type="password" class="textfield2" name="password" id="password" value="123456"/> </label> </span>
 						</td>
 					</tr>
 					<tr>
 						<td height="28" align="right" valign="middle" class="t2"><span
 							class="t1">验证码：</span></td>
 						<td align="left" valign="middle"><span class="t1"> <label>
-									<input type="text" class="textfield3" name="validateCode" id="validateCode" value="zs"/> </label> </span></td>
+									<input type="text" class="textfield3" name="validateCode" id="validateCode" value="abcd"/> </label> </span></td>
 						<td width="65" align="right" valign="middle">
 						<img src="validateCode" id="validate" style="cursor:pointer;" 
 							onclick="refreshMe(this);" width="90" height="24" /></td>
@@ -151,8 +157,10 @@
 				</table>
 				<table width="200" border="0" class="but">
 					<tr>
-						<td width="90"><label><input type="submit" class="button" value="" /></label></td>
-						<td width="100" align="left" valign="middle"><label><input type="reset" class="button2" value="" /></label></td>
+						<body onkeydown="keyLogin();">
+							<td width="90"><label><input id="loginBtn" type="submit" class="button" value="" /></label></td>
+						</body>
+							<td width="100" align="left" valign="middle"><label><input type="reset" class="button2" value="" /></label></td>
 					</tr>
 				</table>
 			</form>

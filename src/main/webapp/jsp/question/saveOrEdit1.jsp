@@ -9,7 +9,7 @@
 				<td class="td_right">
 					<span style="color:red;">*</span>题目：</td>
 				<td class="td_left">
-					<input type="text" id="${tabCode}_form_title" name="title" style="width:380px"/>
+					<input type="text" id="${tabCode}_form_title" name="title"  value="${q.title}" style="width:380px"/>
 				</td>
 				<td width="50"><span class="errorImg"></span><span class="errorMsg"></span></td>
 			</tr>
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td class="td_right">
-					<span style="color:red;">*</span><input type="radio" name="answer" value="A" checked/>选项A：
+					<span style="color:red;">*</span><input type="radio" name="answer" value="A"/>选项A：
 				</td>
 				<td class="td_left">
 					<INPUT id="${tabCode}_form_opt_a" type="text" style="width:380px" name="opt_a" value="${q.opt_a}"/>
@@ -62,7 +62,7 @@
 					正确答案：
 				</td>
 				<td class="td_left">
-					<span style="color:red;" id="${tabCode}_form_answer">${q==null || q.answer==null ?"A":q.answer}</span>
+					<span style="color:red;" id="${tabCode}_form_answer">${q==null || q.answer==null ?"":q.answer}</span>
 				</td>
 				<td width="50"><span class="errorImg"></span><span class="errorMsg"></span></td>
 			</tr>
@@ -225,5 +225,7 @@ $(document).ready(function() {
 	$("#"+tabCode+"_form_submit").omButton({ icons : { left : '${windowSubmitIcons}' } });
 	$("#"+tabCode+"_form_colse").omButton({ icons : { left : '${windowCloseIcons}' } });
 
+    var answerEditArr = '${q.answer}';
+	$("input[value=" + answerEditArr + "]:radio").attr('checked', true)
 });
 </script>
