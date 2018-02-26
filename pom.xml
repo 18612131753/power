@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.3.RELEASE</version>
+		<version>1.5.6.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -75,11 +75,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
-		<dependency>  <!-- logger async 用的是无锁并发技术，必须引入Disruptor  -->
-            <groupId>com.lmax</groupId>  
-            <artifactId>disruptor</artifactId>  
-            <version>3.3.4</version>  
-        </dependency>
+		<dependency>  <!-- logger async 用的是无锁并发技术，必须引入Disruptor -->
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.3.4</version>
+		</dependency>
 		<!-- log4j -->
 
 		<!-- swagger start -->
@@ -116,7 +116,7 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
-		<!-- jsp支持 s 如果存在编译需要而发布不需要的jar包，可以用scope标签，值设为provided-->
+		<!-- jsp支持 s 如果存在编译需要而发布不需要的jar包，可以用scope标签，值设为provided -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -148,18 +148,14 @@
 			<version>1.5.0</version>
 		</dependency>
 
+		<!-- Spring Boot Elasticsearch 依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<finalName>power</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.xml</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 	</build>
 </project>
