@@ -4,7 +4,6 @@ server:
   tomcat:
     uri-encoding: UTF-8
 
-
 spring:
   # 热部署
   devtools:
@@ -33,7 +32,18 @@ spring:
 ##      repositories: 
         #开启 Elasticsearch 仓库
 ##        enabled: true
-        
+  mail:  
+    host: smtp.lenovoeduonline.com
+    username: information@lenovoeduonline.com
+    password: lenovo*123
+    properties:  
+      mail:  
+        smtp: 
+          auth: true
+          starttls: 
+            enable: true
+            required: true
+            
 # 日志配置
 logging:
   config: classpath:log4j2.yml
