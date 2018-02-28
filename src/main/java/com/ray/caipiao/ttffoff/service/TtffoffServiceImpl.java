@@ -13,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ray.base.util.GridDataModel;
 import com.ray.base.util.WebUtils;
 import com.ray.caipiao.ttffoff.dao.TtffoffDao;
+import com.ray.caipiao.ttffoff.form.TtffoffForm;
 import com.ray.caipiao.ttffoff.model.OffoResult;
 import com.ray.caipiao.ttffoff.model.TtffCount;
 import com.ray.caipiao.ttffoff.model.TtffData;
@@ -25,17 +27,18 @@ import com.ray.publicserver.service.MailService;
 public class TtffoffServiceImpl implements TtffoffService {
 
     private static Logger logger = LoggerFactory.getLogger(TtffoffServiceImpl.class);
-    
+
     @Resource
     private TtffoffDao ttffoffDao;
 
-    @Autowired  
+    @Autowired
     private MailService mailService;
-    
+
     // 获取数据页面
     public static String URL = "http://www.off0.com/fenfencai.php";
     public static int TOPNUM = 300;
-    public static int MAILNUM = 120 ;
+    public static int MAILNUM = 120;
+
     @Override
     public List<OffoResult> findUrlData() {
         String result = null;
@@ -117,13 +120,14 @@ public class TtffoffServiceImpl implements TtffoffService {
     @Override
     public List<String> countNumData(List<OffoResult> list) {
         if (list == null || list.size() == 0)
-            return null ;
+            return null;
         List<String> list_ffid = new ArrayList<String>();
         List<TtffCount> list_count = ttffoffDao.findAllGroup();
         for (OffoResult or : list) {
             // 3.1 判断这一期是否已经计算过
-            if (ttffoffDao.findCountExist(or.getId()) > 0) continue;
-            list_ffid.add(or.getId()); //插入期数之前，将集合返回
+            if (ttffoffDao.findCountExist(or.getId()) > 0)
+                continue;
+            list_ffid.add(or.getId()); // 插入期数之前，将集合返回
             // 3.2 如果没有计算过,进行统计
             List<TtffSum> list_d1 = ttffoffDao.findTopN("d1", or.getId(), TtffoffServiceImpl.TOPNUM);
             List<TtffSum> list_d2 = ttffoffDao.findTopN("d2", or.getId(), TtffoffServiceImpl.TOPNUM);
@@ -182,36 +186,54 @@ public class TtffoffServiceImpl implements TtffoffService {
                 c.setD5(0);
             }
         }
-        logger.info( "返回");
-        return list_ffid ;
+        logger.info("返回");
+        return list_ffid;
     }
 
     @Override
     public void sendMail(List<String> ffid_list) {
-        int bignum = TtffoffServiceImpl.MAILNUM ;
+        int bignum = TtffoffServiceImpl.MAILNUM;
         StringBuilder sb = new StringBuilder();
-        
-        for( String ffid : ffid_list ){
-            TtffCount tc = ttffoffDao.findMailNum(ffid) ;
-            if( tc.getD1() >= bignum  ){
-                sb.append( "第 "+ ffid + " 的 万位 数字满足条件：大于 "+ bignum + " 差值...");
+
+        for (String ffid : ffid_list) {
+            TtffCount tc = ttffoffDao.findMailNum(ffid);
+            if (tc.getD1() >= bignum) {
+                sb.append("第 " + ffid + " 的 万位 数字满足条件：大于 " + bignum + " 差值...");
             }
-            if( tc.getD2() >= bignum  ){
-                sb.append( "第 "+ ffid + " 的 千位 数字满足条件：大于 "+ bignum + " 差值...");
+            if (tc.getD2() >= bignum) {
+                sb.append("第 " + ffid + " 的 千位 数字满足条件：大于 " + bignum + " 差值...");
             }
-            if( tc.getD3() >= bignum  ){
-                sb.append( "第 "+ ffid + " 的 百位 数字满足条件：大于 "+ bignum + " 差值...");
+            if (tc.getD3() >= bignum) {
+                sb.append("第 " + ffid + " 的 百位 数字满足条件：大于 " + bignum + " 差值...");
             }
-            if( tc.getD4() >= bignum  ){
-                sb.append( "第 "+ ffid + " 的 十位 数字满足条件：大于 "+ bignum + " 差值...");
+            if (tc.getD4() >= bignum) {
+                sb.append("第 " + ffid + " 的 十位 数字满足条件：大于 " + bignum + " 差值...");
             }
-            if( tc.getD5() >= bignum  ){
-                sb.append( "第 "+ ffid + " 的 个位 数字满足条件：大于 "+ bignum + " 差值...");
+            if (tc.getD5() >= bignum) {
+                sb.append("第 " + ffid + " 的 个位 数字满足条件：大于 " + bignum + " 差值...");
             }
         }
-        if( sb.toString().length() >0){
+        if (sb.toString().length() > 0) {
             mailService.sendSimpleMail("25905459@qq.com", "腾讯彩票友情提示：础亲，可以看看内容了", sb.toString());
+            mailService.sendSimpleMail("32411043@qq.com", "腾讯彩票友情提示:可以看看内容了", sb.toString());
         }
+    }
+
+    @Override
+    public GridDataModel<TtffData> query(TtffoffForm form) {
+        GridDataModel<TtffData> gridmdl = new GridDataModel<TtffData>();
+        List<TtffData> list = ttffoffDao.query(form);
+        gridmdl.setRows(list);
+        gridmdl.setTotal(ttffoffDao.queryCount(form));
+        return gridmdl;
+    }
+
+    @Override
+    public GridDataModel<TtffCount> querycount(TtffoffForm form) {
+        GridDataModel<TtffCount> gridmdl = new GridDataModel<TtffCount>();
+        List<TtffCount> list = ttffoffDao.queryCountData(form);
+        gridmdl.setRows(list);
+        return gridmdl;
     }
 
 }

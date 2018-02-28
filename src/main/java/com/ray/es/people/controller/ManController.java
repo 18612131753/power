@@ -11,20 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ray.base.util.GridDataModel;
 import com.ray.base.util.ModelAndViewUtil;
-import com.ray.base.util.SessionUtil;
 import com.ray.es.people.Service.ManService;
-import com.ray.exam.question.controller.QuestionController;
-import com.ray.exam.question.form.QuestionForm;
-import com.ray.exam.question.model.QuestionDO;
-import com.ray.power.login.model.UserSession;
-
-import io.swagger.annotations.ApiOperation;
 
 @Controller
 @RequestMapping("/man")

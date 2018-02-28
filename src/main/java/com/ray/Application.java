@@ -8,11 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 //自动扫描注入配置的包路径下的bean 
 @SpringBootApplication(scanBasePackages = { "com.ray" })
 // 这个就是扫描相应的Servlet包;
 @ServletComponentScan
+//允许定时
+@EnableScheduling
 public class Application extends SpringBootServletInitializer {
 
 	@Override

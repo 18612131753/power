@@ -133,14 +133,14 @@
 						<td width="150" height="28" align="right" valign="middle"
 							class="t2"><span class="t1">用户名：</span></td>
 						<td colspan="3" align="left" valign="middle"><span class="t1">
-								<label> <input type="text" class="textfield" name="loginname" id="loginname" value="admin"/> </label> </span>
+								<label> <input type="text" class="textfield" name="loginname" id="loginname" value=""/> </label> </span>
 						</td>
 					</tr>
 					<tr>
 						<td height="28" align="right" valign="middle" class="t2"><span
 							class="t1">密&nbsp;&nbsp;码：</span></td>
 						<td colspan="3" align="left" valign="middle"><span class="t1">
-								<label> <input type="password" class="textfield2" name="password" id="password" value="123456"/> </label> </span>
+								<label> <input type="password" class="textfield2" name="password" id="password" value=""/> </label> </span>
 						</td>
 					</tr>
 					<tr>

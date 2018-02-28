@@ -2,10 +2,20 @@ package com.ray.caipiao.ttffoff.service;
 
 import java.util.List;
 
+import com.ray.base.util.GridDataModel;
+import com.ray.caipiao.ttffoff.form.TtffoffForm;
 import com.ray.caipiao.ttffoff.model.OffoResult;
+import com.ray.caipiao.ttffoff.model.TtffCount;
+import com.ray.caipiao.ttffoff.model.TtffData;
 
 public interface TtffoffService {
 
+    /** 每期数据分页 */
+    public GridDataModel<TtffData> query(TtffoffForm form);
+    
+    /** 分析数据，不分页  */
+    public GridDataModel<TtffCount> querycount(TtffoffForm form);
+    
     /** 从网页获取数据 */
     public List<OffoResult> findUrlData();
 

@@ -6,12 +6,19 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.ray.caipiao.ttffoff.form.TtffoffForm;
 import com.ray.caipiao.ttffoff.model.TtffCount;
 import com.ray.caipiao.ttffoff.model.TtffData;
 import com.ray.caipiao.ttffoff.model.TtffSum;
 
 public interface TtffoffDao {
 
+    public List<TtffData> query(@Param("form") TtffoffForm queryForm);
+
+    public int queryCount(@Param("form") TtffoffForm queryForm);
+    
+    public List<TtffCount> queryCountData(@Param("form") TtffoffForm queryForm);
+    
     @Select("select count(*) from ttff_data where ffid=#{ffid}")
     public int findTtffByIdCount(@Param("ffid") String ffid);
 

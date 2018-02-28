@@ -23,6 +23,17 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  mail:  
+    host: smtp.163.com
+    username: k0363224@163.com
+    password: qaz!@#
+    properties: 
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
   # elasticsearch , 9300 是 Java 客户端的端口(tcp)。9200 是支持 Restful HTTP 
 ##  data:
 ##    elasticsearch:
@@ -31,19 +42,8 @@ spring:
 ##      cluster-nodes: 192.168.192.129:9300
 ##      repositories: 
         #开启 Elasticsearch 仓库
-##        enabled: true
-  mail:  
-    host: smtp.lenovoeduonline.com
-    username: information@lenovoeduonline.com
-    password: lenovo*123
-    properties:  
-      mail:  
-        smtp: 
-          auth: true
-          starttls: 
-            enable: true
-            required: true
-            
+##        enabled: true 
+
 # 日志配置
 logging:
   config: classpath:log4j2.yml
