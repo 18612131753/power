@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ray.caipiao.ttffoff.dao.TtffoffDao">
+
+	<sql id="findTtff_SQL">
+		FROM ttff_data t
+		where 1=1 
+		<if test="form.ffid != null and form.ffid !=''">
+			AND t.ffid like CONCAT(#{form.ffid},'%')
+		</if>
+		<if test="form.year != null and form.year !=''">
+			AND t.year = #{form.year}
+		</if>
+	</sql>
+	<select id="query" resultType="com.ray.caipiao.ttffoff.model.TtffData">
+		select * 
+		<include refid="findTtff_SQL" />
+		order by ffid desc 
+		limit #{form.start},#{form.limit}
+	</select>
+	<select id="queryCount" resultType="Integer">
+		select count(*)
+		<include refid="findTtff_SQL" />
+	</select>
+
+	<select id="queryCountData" resultType="com.ray.caipiao.ttffoff.model.TtffCount">
+		select tc.*,tg.result 
+		FROM ttff_count tc , ttff_group tg
+		where tc.groupid = tg.groupid 
+			AND tc.ffid=#{form.ffid}
+	</select>
+</mapper>
