@@ -2,6 +2,7 @@ package com.ray.caipiao.ttffoff.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import com.ray.caipiao.ttffoff.form.TtffoffForm;
 import com.ray.caipiao.ttffoff.model.TtffCount;
 import com.ray.caipiao.ttffoff.model.TtffData;
+import com.ray.caipiao.ttffoff.model.TtffGroup;
 import com.ray.caipiao.ttffoff.model.TtffSum;
 
 public interface TtffoffDao {
@@ -41,10 +43,25 @@ public interface TtffoffDao {
     @Select("select * from ttff_group")
     public List<TtffCount> findAllGroup();
 
+    @Select("select * from ttff_group")
+    public List<TtffGroup> findGroupList();
+    
     @Insert("INSERT INTO ttff_count ( ffid, groupid,d1,d2,d3,d4,d5,udate ) "
             + "VALUES( #{c.ffid},#{c.groupid},#{c.d1},#{c.d2},#{c.d3},#{c.d4},#{c.d5},#{c.udate})")
     public void saveTtffCount(@Param("c") TtffCount c) throws Exception;
     
     @Select("select max(d1)-min(d1) as d1 ,max(d2)-min(d2) as d2 ,max(d3)-min(d3) as d3 ,max(d4)-min(d4) as d4 ,max(d5)-min(d5) as d5 from ttff_count where ffid=#{ffid}")
     public TtffCount findMailNum(@Param("ffid") String ffid );
+    
+    /**
+     * 取出两期之间的中奖数据
+     * */
+    @Select("select * from ttff_data where ffid>=#{startffid} and ffid<=#{endffid} order by ffid asc")
+    public List<TtffData> findBetweenData(@Param("startffid") String startffid,@Param("endffid") String endffid);
+
+    @Select("select max(ffid) from ttff_data")
+    public String findMaxFfid();
+    
+    @Delete("delete from ttff_count where ffid <#{ffid}")
+    public void deleteCountData(@Param("ffid") String ffid);
 }

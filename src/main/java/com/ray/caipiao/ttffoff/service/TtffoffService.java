@@ -7,6 +7,7 @@ import com.ray.caipiao.ttffoff.form.TtffoffForm;
 import com.ray.caipiao.ttffoff.model.OffoResult;
 import com.ray.caipiao.ttffoff.model.TtffCount;
 import com.ray.caipiao.ttffoff.model.TtffData;
+import com.ray.caipiao.ttffoff.model.TtffGroup;
 
 public interface TtffoffService {
 
@@ -31,4 +32,13 @@ public interface TtffoffService {
      * 邮件系统
      * */
     public void sendMail (List<String> ffid_list);
+    
+    /**
+     * 根据需求二，计算指数差，期数差
+     * */
+    public GridDataModel<TtffGroup> zhishuz(String startffid ,String endffid);
+    
+    public String findMaxFfid();
+    
+    public void deleteCountData(String ffid);
 }

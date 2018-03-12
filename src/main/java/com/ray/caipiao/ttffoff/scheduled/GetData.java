@@ -22,7 +22,7 @@ public class GetData {
     @Resource(name = "ttffoffService")
     private TtffoffService ttffoffService;
 
-    @Scheduled(cron = "20 * * * * ?")
+    @Scheduled(cron = "40 * * * * ?")
     // 间隔60秒 @Scheduled(fixedDelay = 60000)
     public void getMinuteData() {
         logger.info( RayDateUtils.dateToStr(new Date()) +" start TTFFOff");
@@ -51,4 +51,12 @@ public class GetData {
         ttffoffService.sendMail( ffid_list );
     }
 
+    @Scheduled(cron = "0 10 0 * * ?")
+    // 每天0点10分钟执行
+    public void deleteCountData() {
+        logger.info( RayDateUtils.dateToStr(new Date()) +" start deleteCountData");
+        Date today = new Date();
+        String today_s = RayDateUtils.dateToStr("yyyyMMdd",today)+"0001";
+        ttffoffService.deleteCountData( today_s );
+    }
 }

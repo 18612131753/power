@@ -20,6 +20,7 @@ import com.ray.caipiao.ttffoff.form.TtffoffForm;
 import com.ray.caipiao.ttffoff.model.OffoResult;
 import com.ray.caipiao.ttffoff.model.TtffCount;
 import com.ray.caipiao.ttffoff.model.TtffData;
+import com.ray.caipiao.ttffoff.model.TtffGroup;
 import com.ray.caipiao.ttffoff.model.TtffSum;
 import com.ray.publicserver.service.MailService;
 
@@ -234,6 +235,99 @@ public class TtffoffServiceImpl implements TtffoffService {
         List<TtffCount> list = ttffoffDao.queryCountData(form);
         gridmdl.setRows(list);
         return gridmdl;
+    }
+
+    @Override
+    public GridDataModel<TtffGroup> zhishuz(String startffid, String endffid) {
+        List<TtffData> list_data = ttffoffDao.findBetweenData(startffid, endffid);
+        if( list_data.size() < 1) return null ;
+        List<TtffGroup> list_group = ttffoffDao.findGroupList();
+        TtffData start_data = list_data.get( 0 );
+        TtffData end_data = list_data.get( list_data.size() -1 );
+        for( TtffGroup g : list_group ){
+            g.setD1_x_ffid( end_data.getFfid()  );
+            g.setD2_x_ffid( end_data.getFfid() );
+            g.setD3_x_ffid( end_data.getFfid() );
+            g.setD4_x_ffid( end_data.getFfid() );
+            g.setD5_x_ffid( end_data.getFfid() );
+            g.setStart_ffid( start_data.getFfid() );
+        }
+        for (TtffData data : list_data) {
+            for (TtffGroup g : list_group) {
+                // 1. 万位计算
+                if (g.getResult().indexOf(data.getD1().toString()) >= 0) {
+                    g.setD1_x(g.getD1_x() + 0.5);
+                } else {
+                    g.setD1_x(g.getD1_x() - 0.5);
+                }
+                // 取出最大值
+                if (g.getD1_x() >= g.getD1_y()) {
+                    g.setD1_y(g.getD1_x());
+                    g.setD1_y_ffid(data.getFfid());
+                }
+                
+                // 2. 千位计算
+                if (g.getResult().indexOf(data.getD2().toString()) >= 0) {
+                    g.setD2_x(g.getD2_x() + 0.5);
+                } else {
+                    g.setD2_x(g.getD2_x() - 0.5);
+                }
+                // 取出最大值
+                if (g.getD2_x() >= g.getD2_y()) {
+                    g.setD2_y(g.getD2_x());
+                    g.setD2_y_ffid(data.getFfid());
+                }
+                
+                // 3. 百位计算
+                if (g.getResult().indexOf(data.getD3().toString()) >= 0) {
+                    g.setD3_x(g.getD3_x() + 0.5);
+                } else {
+                    g.setD3_x(g.getD3_x() - 0.5);
+                }
+                // 取出最大值
+                if (g.getD3_x() >= g.getD3_y()) {
+                    g.setD3_y(g.getD3_x());
+                    g.setD3_y_ffid(data.getFfid());
+                }
+                
+                // 4. 十位计算
+                if (g.getResult().indexOf(data.getD4().toString()) >= 0) {
+                    g.setD4_x(g.getD4_x() + 0.5);
+                } else {
+                    g.setD4_x(g.getD4_x() - 0.5);
+                }
+                // 取出最大值
+                if (g.getD4_x() >= g.getD4_y()) {
+                    g.setD4_y(g.getD4_x());
+                    g.setD4_y_ffid(data.getFfid());
+                }
+                
+                // 5. 个位计算
+                if (g.getResult().indexOf(data.getD5().toString()) >= 0) {
+                    g.setD5_x(g.getD5_x() + 0.5);
+                } else {
+                    g.setD5_x(g.getD5_x() - 0.5);
+                }
+                // 取出最大值
+                if (g.getD5_x() >= g.getD5_y()) {
+                    g.setD5_y(g.getD5_x());
+                    g.setD5_y_ffid(data.getFfid());
+                }
+            }
+        }
+        GridDataModel<TtffGroup> gridmdl = new GridDataModel<TtffGroup>();
+        gridmdl.setRows(list_group);
+        return gridmdl ;
+    }
+
+    @Override
+    public String findMaxFfid() {
+        return ttffoffDao.findMaxFfid();
+    }
+
+    @Override
+    public void deleteCountData(String ffid) {
+        ttffoffDao.deleteCountData( ffid );
     }
 
 }
